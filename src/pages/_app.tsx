@@ -1,12 +1,14 @@
+import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core';
 import '@mantine/core/styles.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
-import { theme } from '../theme';
+import { theme } from '~/core/styles/theme';
+
+const colorSchemeManager = localStorageColorSchemeManager({ key: 'my-app-color-scheme' });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
       <Head>
         <title>Mantine Template</title>
         <meta
