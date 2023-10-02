@@ -1,8 +1,9 @@
-import { Container, Loader } from '@mantine/core'
+import { Container, Loader, Stack } from '@mantine/core'
 import { ReactComponentLike } from 'prop-types'
 import React, { useState } from 'react'
 import Footer from './Footer'
 import Header from './Header'
+import classes from './Header/Header.module.css'
 import Siderbar from './Sidebar'
 
 interface IProps {
@@ -31,12 +32,15 @@ export default function AdminContainer(props: IProps) {
         <Container size="xl" w="100vw" mih="100vh">
           <Header />
 
+          {/* loading component */}
           {isLayoutLoading && <Loader />}
 
-          {/* render content */}
-          <Component {...props} />
+          <Stack gap="lg" className={classes.content}>
+            {/* render content */}
+            <Component {...props} />
 
-          <Footer />
+            <Footer />
+          </Stack>
         </Container>
       </div>
     </AdminContext.Provider>

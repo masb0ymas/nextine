@@ -16,8 +16,8 @@ export default function App(props: AppProps) {
   const title = env.APP_NAME
   const description = `${env.APP_NAME} - Improve your website with me.`
   const metaURL = env.SITE_URL
-  const metaImage = '/static/images/logo-fill.png'
-  const webIconURL = '/static/images/logo-fill.png'
+  const metaImage = '/favicon.svg'
+  const webIconURL = '/favicon.svg'
 
   return (
     <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>

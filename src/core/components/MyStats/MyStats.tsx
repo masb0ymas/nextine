@@ -1,4 +1,4 @@
-import { Group, Paper, SimpleGrid, Text } from '@mantine/core';
+import { Group, Paper, SimpleGrid, Text } from '@mantine/core'
 import {
   IconArrowDownRight,
   IconArrowUpRight,
@@ -6,30 +6,30 @@ import {
   IconDiscount2,
   IconReceipt2,
   IconUserPlus,
-} from '@tabler/icons-react';
-import classes from './Stats.module.css';
+} from '@tabler/icons-react'
+import classes from './Stats.module.css'
 
 const icons = {
   user: IconUserPlus,
   discount: IconDiscount2,
   receipt: IconReceipt2,
   coin: IconCoin,
-};
+}
 
 const data = [
   { title: 'Revenue', icon: 'receipt', value: '13,456', diff: 34 },
   { title: 'Profit', icon: 'coin', value: '4,145', diff: -13 },
   { title: 'Coupons usage', icon: 'discount', value: '745', diff: 18 },
   { title: 'New customers', icon: 'user', value: '188', diff: -30 },
-] as const;
+] as const
 
 export default function MyStats() {
   const stats = data.map((stat) => {
-    const Icon = icons[stat.icon];
-    const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
+    const Icon = icons[stat.icon]
+    const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight
 
     return (
-      <Paper withBorder p="md" radius="md" shadow="sm" key={stat.title}>
+      <Paper p="md" radius="md" className={classes.card} key={stat.title}>
         <Group justify="space-between">
           <Text size="sm" className={classes.title}>
             {stat.title}
@@ -44,7 +44,12 @@ export default function MyStats() {
 
         <Group align="flex-end" gap="xs" mt={25}>
           <Text className={classes.value}>{stat.value}</Text>
-          <Text c={stat.diff > 0 ? 'teal' : 'red'} fz="sm" fw={600} className={classes.diff}>
+          <Text
+            c={stat.diff > 0 ? 'teal' : 'red'}
+            fz="sm"
+            fw={600}
+            className={classes.diff}
+          >
             <span>{stat.diff}%</span>
             <DiffIcon size="1rem" stroke={1.5} />
           </Text>
@@ -54,12 +59,8 @@ export default function MyStats() {
           Compared to previous month
         </Text>
       </Paper>
-    );
-  });
+    )
+  })
 
-  return (
-    <div className={classes.root}>
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
-    </div>
-  );
+  return <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}</SimpleGrid>
 }

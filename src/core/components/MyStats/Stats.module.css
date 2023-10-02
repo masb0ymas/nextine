@@ -1,9 +1,14 @@
 .root {
-  padding: calc(var(--mantine-spacing-xl) * 1.5);
+  /* padding: calc(var(--mantine-spacing-xl) * 1.5); */
+  padding: rem(15);
 }
 
 .label {
   font-family:
     Greycliff CF,
     var(--mantine-font-family);
+}
+
+.card {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
