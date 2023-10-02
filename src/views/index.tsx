@@ -1,21 +1,24 @@
-import { Container } from '@mantine/core';
-import MyStats from '~/core/components/MyStats/MyStats';
-import Footer from '~/layouts/Admin/Footer';
-import Header from '~/layouts/Admin/Header';
-import Siderbar from '~/layouts/Admin/Sidebar';
+import { Paper, Title } from '@mantine/core'
+import MyStats from '~/core/components/MyStats/MyStats'
+import classes from '~/core/components/MyStats/Stats.module.css'
+import TableScroll from '~/core/components/MyTable/TableScroll/TableScroll'
 
 export default function HomePage() {
   return (
-    <div style={{ display: 'flex' }}>
-      <Siderbar />
+    <>
+      <Title size={30} fw={600}>
+        Overview
+      </Title>
 
-      <Container size="xl" w="100vw" mih="100vh">
-        <Header />
+      <MyStats />
 
-        <MyStats />
+      <Title size={30} fw={600}>
+        New Member
+      </Title>
 
-        <Footer />
-      </Container>
-    </div>
-  );
+      <Paper p={20} radius="md" className={classes.card}>
+        <TableScroll />
+      </Paper>
+    </>
+  )
 }

@@ -1,14 +1,30 @@
-import { Avatar, Divider, Group, Menu, Text, TextInput, UnstyledButton, rem } from '@mantine/core';
-import { IconLockAccess, IconLogout, IconSearch, IconUserCog } from '@tabler/icons-react';
-import classes from './Header.module.css';
+import {
+  Avatar,
+  Divider,
+  Group,
+  Menu,
+  Text,
+  TextInput,
+  UnstyledButton,
+  rem,
+} from '@mantine/core'
+import {
+  IconLockAccess,
+  IconLogout,
+  IconSearch,
+  IconUserCog,
+} from '@tabler/icons-react'
+import classes from './Header.module.css'
 
 export default function Header() {
   return (
-    <div className={classes.header}>
+    <div className={classes.content}>
       <Group justify="space-between">
         <TextInput
           leftSectionPointerEvents="none"
-          leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} />}
+          leftSection={
+            <IconSearch style={{ width: rem(16), height: rem(16) }} />
+          }
           placeholder="Search"
           radius="md"
         />
@@ -32,11 +48,19 @@ export default function Header() {
           </Menu.Target>
 
           <Menu.Dropdown>
-            <Menu.Item leftSection={<IconUserCog style={{ width: rem(14), height: rem(14) }} />}>
+            <Menu.Item
+              leftSection={
+                <IconUserCog style={{ width: rem(14), height: rem(14) }} />
+              }
+            >
               Profile
             </Menu.Item>
 
-            <Menu.Item leftSection={<IconLockAccess style={{ width: rem(14), height: rem(14) }} />}>
+            <Menu.Item
+              leftSection={
+                <IconLockAccess style={{ width: rem(14), height: rem(14) }} />
+              }
+            >
               Change Password
             </Menu.Item>
 
@@ -44,7 +68,9 @@ export default function Header() {
 
             <Menu.Item
               color="red"
-              leftSection={<IconLogout style={{ width: rem(14), height: rem(14) }} />}
+              leftSection={
+                <IconLogout style={{ width: rem(14), height: rem(14) }} />
+              }
             >
               Logout
             </Menu.Item>
@@ -52,5 +78,5 @@ export default function Header() {
         </Menu>
       </Group>
     </div>
-  );
+  )
 }

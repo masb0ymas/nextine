@@ -6,8 +6,8 @@ import {
   UnstyledButton,
   rem,
   useMantineColorScheme,
-} from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
+} from '@mantine/core'
+import { MantineLogo } from '@mantine/ds'
 import {
   IconAnalyze,
   IconColorSwatch,
@@ -21,23 +21,29 @@ import {
   IconSun,
   IconUser,
   IconUsers,
-} from '@tabler/icons-react';
-import _ from 'lodash';
-import { useState } from 'react';
-import classes from '~/core/components/MyNavbar/Navbar.module.css';
+} from '@tabler/icons-react'
+import _ from 'lodash'
+import { useState } from 'react'
+import classes from '~/core/components/MyNavbar/Navbar.module.css'
 
 interface BaseNavbarLinkProps {
-  icon: typeof IconHome2;
-  label: string;
-  active?: boolean;
-  onClick?(): void;
+  icon: typeof IconHome2
+  label: string
+  active?: boolean
+  onClick?(): void
 }
 
 interface NavbarLinkProps extends BaseNavbarLinkProps {
-  links?: BaseNavbarLinkProps[];
+  links?: BaseNavbarLinkProps[]
 }
 
-function NavbarLink({ icon: Icon, label, links, active, onClick }: NavbarLinkProps) {
+function NavbarLink({
+  icon: Icon,
+  label,
+  links,
+  active,
+  onClick,
+}: NavbarLinkProps) {
   return (
     <>
       {!_.isEmpty(links) ? (
@@ -63,7 +69,9 @@ function NavbarLink({ icon: Icon, label, links, active, onClick }: NavbarLinkPro
           <Menu.Dropdown>
             {links?.map((item) => (
               <Menu.Item
-                leftSection={<item.icon style={{ width: rem(14), height: rem(14) }} />}
+                leftSection={
+                  <item.icon style={{ width: rem(14), height: rem(14) }} />
+                }
                 key={item.label}
               >
                 {item.label}
@@ -72,7 +80,11 @@ function NavbarLink({ icon: Icon, label, links, active, onClick }: NavbarLinkPro
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
+        <Tooltip
+          label={label}
+          position="right"
+          transitionProps={{ duration: 0 }}
+        >
           <UnstyledButton
             onClick={onClick}
             className={classes.link}
@@ -83,7 +95,7 @@ function NavbarLink({ icon: Icon, label, links, active, onClick }: NavbarLinkPro
         </Tooltip>
       )}
     </>
-  );
+  )
 }
 
 const mockdata = [
@@ -108,11 +120,11 @@ const mockdata = [
     ],
   },
   { icon: IconSettings, label: 'Settings' },
-];
+]
 
 export default function Siderbar() {
-  const [active, setActive] = useState(0);
-  const { setColorScheme } = useMantineColorScheme();
+  const [active, setActive] = useState(0)
+  const { setColorScheme } = useMantineColorScheme()
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
@@ -121,7 +133,7 @@ export default function Siderbar() {
       active={index === active}
       onClick={() => setActive(index)}
     />
-  ));
+  ))
 
   return (
     <nav className={classes.navbar}>
@@ -147,40 +159,59 @@ export default function Siderbar() {
         >
           <Menu.Target>
             <UnstyledButton className={classes.link}>
-              <IconColorSwatch style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
+              <IconColorSwatch
+                style={{ width: rem(20), height: rem(20) }}
+                stroke={1.5}
+              />
             </UnstyledButton>
           </Menu.Target>
 
           <Menu.Dropdown>
             <Menu.Item
               onClick={() => setColorScheme('auto')}
-              leftSection={<IconDeviceDesktopCog style={{ width: rem(14), height: rem(14) }} />}
+              leftSection={
+                <IconDeviceDesktopCog
+                  style={{ width: rem(14), height: rem(14) }}
+                />
+              }
             >
               Auto
             </Menu.Item>
 
             <Menu.Item
               onClick={() => setColorScheme('light')}
-              leftSection={<IconSun style={{ width: rem(14), height: rem(14) }} />}
+              leftSection={
+                <IconSun style={{ width: rem(14), height: rem(14) }} />
+              }
             >
               Light
             </Menu.Item>
 
             <Menu.Item
               onClick={() => setColorScheme('dark')}
-              leftSection={<IconMoon style={{ width: rem(14), height: rem(14) }} />}
+              leftSection={
+                <IconMoon style={{ width: rem(14), height: rem(14) }} />
+              }
             >
               Dark
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
 
-        <Tooltip label="Logout" position="right" transitionProps={{ duration: 0 }}>
+        <Tooltip
+          label="Logout"
+          position="right"
+          transitionProps={{ duration: 0 }}
+        >
           <UnstyledButton className={classes.link} color="red">
-            <IconLogout color="red" style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
+            <IconLogout
+              color="red"
+              style={{ width: rem(20), height: rem(20) }}
+              stroke={1.5}
+            />
           </UnstyledButton>
         </Tooltip>
       </Stack>
     </nav>
-  );
+  )
 }
