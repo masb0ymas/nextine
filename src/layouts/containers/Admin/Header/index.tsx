@@ -18,7 +18,7 @@ import classes from './Header.module.css'
 
 export default function Header() {
   return (
-    <div className={classes.content}>
+    <header className={classes.header}>
       <Group justify="space-between">
         <TextInput
           leftSectionPointerEvents="none"
@@ -77,6 +77,6 @@ export default function Header() {
           </Menu.Dropdown>
         </Menu>
       </Group>
-    </div>
+    </header>
   )
 }

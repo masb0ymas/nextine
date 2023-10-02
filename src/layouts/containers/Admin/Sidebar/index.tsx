@@ -24,7 +24,7 @@ import {
 } from '@tabler/icons-react'
 import _ from 'lodash'
 import { useState } from 'react'
-import classes from '~/core/components/MyNavbar/Navbar.module.css'
+import classes from './Sidebar.module.css'
 
 interface BaseNavbarLinkProps {
   icon: typeof IconHome2
