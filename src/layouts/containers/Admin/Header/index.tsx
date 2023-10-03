@@ -9,7 +9,7 @@ import {
   rem,
 } from '@mantine/core'
 import {
-  IconLockAccess,
+  IconLockOpen,
   IconLogout,
   IconSearch,
   IconUserCog,
@@ -58,7 +58,7 @@ export default function Header() {
 
             <Menu.Item
               leftSection={
-                <IconLockAccess style={{ width: rem(14), height: rem(14) }} />
+                <IconLockOpen style={{ width: rem(14), height: rem(14) }} />
               }
             >
               Change Password
