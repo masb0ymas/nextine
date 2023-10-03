@@ -5,14 +5,14 @@ import TableScroll from '~/core/components/MyTable/TableScroll/TableScroll'
 
 export default function HomePage() {
   return (
-    <Stack>
-      <Title size={30} fw={600}>
+    <Stack gap="xl">
+      <Title size={26} fw={600}>
         Overview
       </Title>
 
       <MyStats />
 
-      <Title size={30} fw={600}>
+      <Title size={26} fw={600}>
         New Member
       </Title>
 
