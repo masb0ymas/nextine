@@ -7,7 +7,6 @@ import {
   rem,
   useMantineColorScheme,
 } from '@mantine/core'
-import { MantineLogo } from '@mantine/ds'
 import {
   IconAnalyze,
   IconColorSwatch,
@@ -24,7 +23,8 @@ import {
 } from '@tabler/icons-react'
 import _ from 'lodash'
 import { useState } from 'react'
-import classes from '~/core/components/MyNavbar/Navbar.module.css'
+import MantineLogo from '~/core/components/BrandLogo/MantineLogo'
+import classes from './Sidebar.module.css'
 
 interface BaseNavbarLinkProps {
   icon: typeof IconHome2
@@ -138,7 +138,7 @@ export default function Siderbar() {
   return (
     <nav className={classes.navbar}>
       <Center>
-        <MantineLogo type="mark" size={35} />
+        <MantineLogo />
       </Center>
 
       <div className={classes.navbarMain}>

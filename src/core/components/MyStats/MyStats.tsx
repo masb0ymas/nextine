@@ -1,4 +1,4 @@
-import { Group, Paper, SimpleGrid, Text } from '@mantine/core'
+import { Group, SimpleGrid, Text } from '@mantine/core'
 import {
   IconArrowDownRight,
   IconArrowUpRight,
@@ -7,6 +7,7 @@ import {
   IconReceipt2,
   IconUserPlus,
 } from '@tabler/icons-react'
+import MyPaper from '../MyPaper/MyPaper'
 import classes from './Stats.module.css'
 
 const icons = {
@@ -29,7 +30,7 @@ export default function MyStats() {
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight
 
     return (
-      <Paper p="md" radius="md" className={classes.card} key={stat.title}>
+      <MyPaper withBorder p={20} radius="md" key={stat.title}>
         <Group justify="space-between">
           <Text size="sm" className={classes.title}>
             {stat.title}
@@ -58,7 +59,7 @@ export default function MyStats() {
         <Text fz="sm" c="dimmed" mt={7}>
           Compared to previous month
         </Text>
-      </Paper>
+      </MyPaper>
     )
   })
 

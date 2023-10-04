@@ -9,7 +9,7 @@ import {
   rem,
 } from '@mantine/core'
 import {
-  IconLockAccess,
+  IconLockOpen,
   IconLogout,
   IconSearch,
   IconUserCog,
@@ -18,7 +18,7 @@ import classes from './Header.module.css'
 
 export default function Header() {
   return (
-    <div className={classes.content}>
+    <header className={classes.header}>
       <Group justify="space-between">
         <TextInput
           leftSectionPointerEvents="none"
@@ -58,7 +58,7 @@ export default function Header() {
 
             <Menu.Item
               leftSection={
-                <IconLockAccess style={{ width: rem(14), height: rem(14) }} />
+                <IconLockOpen style={{ width: rem(14), height: rem(14) }} />
               }
             >
               Change Password
@@ -77,6 +77,6 @@ export default function Header() {
           </Menu.Dropdown>
         </Menu>
       </Group>
-    </div>
+    </header>
   )
 }

@@ -1,3 +1,3 @@
-import HomePage from '~/views'
+import LoginPage from '~/views/Auth/login'
 
-export default HomePage
+export default LoginPage
