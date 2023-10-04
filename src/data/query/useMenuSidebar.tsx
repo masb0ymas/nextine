@@ -1,8 +1,12 @@
 import {
+  IconAnalyze,
   IconApps,
-  IconHome,
+  IconDeviceDesktopAnalytics,
+  IconHistory,
+  IconHome2,
   IconServerCog,
   IconSettings,
+  IconUser,
   IconUsers,
 } from '@tabler/icons-react'
 import React from 'react'
@@ -20,34 +24,42 @@ export interface MainLinkProps extends LinkProps {
 
 function useMenuSidebar() {
   const data = [
+    { icon: IconHome2, label: 'Home', link: '/dashboard' },
+    { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/analytic' },
     {
-      icon: <IconHome size={16} />,
-      color: 'blue',
-      label: 'Dashboard',
-      link: '/admin/dashboard',
+      icon: IconUsers,
+      label: 'Account',
+      links: [
+        {
+          icon: IconUser,
+          label: 'User',
+          link: '/account/user',
+        },
+        {
+          icon: IconAnalyze,
+          label: 'Role',
+          link: '/account/role',
+        },
+        {
+          icon: IconHistory,
+          label: 'Session',
+          link: '/account/session',
+        },
+      ],
     },
     {
-      icon: <IconSettings size={16} />,
-      color: 'grape',
+      icon: IconSettings,
       label: 'Settings',
       links: [
         {
-          icon: <IconApps size={16} />,
-          color: 'grape',
+          icon: IconApps,
           label: 'App',
-          link: '/admin/settings/app',
+          link: '/setting/app',
         },
         {
-          icon: <IconUsers size={16} />,
-          color: 'grape',
-          label: 'Account',
-          link: '/admin/settings/account',
-        },
-        {
-          icon: <IconServerCog size={16} />,
-          color: 'grape',
+          icon: IconServerCog,
           label: 'Master Data',
-          link: '/admin/settings/master',
+          link: '/setting/master',
         },
       ],
     },

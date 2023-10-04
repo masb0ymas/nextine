@@ -8,29 +8,25 @@ import {
   useMantineColorScheme,
 } from '@mantine/core'
 import {
-  IconAnalyze,
   IconColorSwatch,
-  IconDeviceDesktopAnalytics,
   IconDeviceDesktopCog,
-  IconHistory,
   IconHome2,
   IconLogout,
   IconMoon,
-  IconSettings,
   IconSun,
-  IconUser,
-  IconUsers,
 } from '@tabler/icons-react'
 import _ from 'lodash'
+import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
 import MantineLogo from '~/core/components/BrandLogo/MantineLogo'
+import useMenuSidebar from '~/data/query/useMenuSidebar'
 import classes from './Sidebar.module.css'
 
 interface BaseNavbarLinkProps {
   icon: typeof IconHome2
   label: string
+  link?: string
   active?: boolean
-  onClick?(): void
 }
 
 interface NavbarLinkProps extends BaseNavbarLinkProps {
@@ -40,17 +36,19 @@ interface NavbarLinkProps extends BaseNavbarLinkProps {
 function NavbarLink({
   icon: Icon,
   label,
+  link,
   links,
   active,
-  onClick,
 }: NavbarLinkProps) {
+  const router = useRouter()
+
   return (
     <>
       {!_.isEmpty(links) ? (
         <Menu
           withArrow
           shadow="md"
-          position="right"
+          position="right-start"
           radius="md"
           trigger="hover"
           openDelay={200}
@@ -58,7 +56,6 @@ function NavbarLink({
         >
           <Menu.Target>
             <UnstyledButton
-              onClick={onClick}
               className={classes.link}
               data-active={active || undefined}
             >
@@ -67,16 +64,23 @@ function NavbarLink({
           </Menu.Target>
 
           <Menu.Dropdown>
-            {links?.map((item) => (
-              <Menu.Item
-                leftSection={
-                  <item.icon style={{ width: rem(14), height: rem(14) }} />
-                }
-                key={item.label}
-              >
-                {item.label}
-              </Menu.Item>
-            ))}
+            {links?.map((item) => {
+              const is_active = item.link === router.pathname
+
+              return (
+                <Menu.Item
+                  leftSection={
+                    <item.icon style={{ width: rem(16), height: rem(16) }} />
+                  }
+                  onClick={() => Router.push(String(item.link))}
+                  data-active={is_active}
+                  color={is_active ? 'blue' : undefined}
+                  key={item.label}
+                >
+                  {item.label}
+                </Menu.Item>
+              )
+            })}
           </Menu.Dropdown>
         </Menu>
       ) : (
@@ -86,7 +90,7 @@ function NavbarLink({
           transitionProps={{ duration: 0 }}
         >
           <UnstyledButton
-            onClick={onClick}
+            onClick={() => Router.push(String(link))}
             className={classes.link}
             data-active={active || undefined}
           >
@@ -98,42 +102,26 @@ function NavbarLink({
   )
 }
 
-const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  {
-    icon: IconUsers,
-    label: 'Account',
-    links: [
-      {
-        icon: IconUser,
-        label: 'User',
-      },
-      {
-        icon: IconAnalyze,
-        label: 'Role',
-      },
-      {
-        icon: IconHistory,
-        label: 'Session',
-      },
-    ],
-  },
-  { icon: IconSettings, label: 'Settings' },
-]
-
 export default function Siderbar() {
-  const [active, setActive] = useState(0)
+  const router = useRouter()
   const { setColorScheme } = useMantineColorScheme()
 
-  const links = mockdata.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
-    />
-  ))
+  const queryMenu = useMenuSidebar()
+  const { data } = queryMenu
+
+  const links = data.map((item) => {
+    const links_active = item.links?.find((x) => x.link === router.pathname)
+    const is_active = item.link === router.pathname || !_.isEmpty(links_active)
+
+    return (
+      <NavbarLink
+        {...item}
+        key={item.label}
+        active={is_active}
+        link={item.link}
+      />
+    )
+  })
 
   return (
     <nav className={classes.navbar}>
