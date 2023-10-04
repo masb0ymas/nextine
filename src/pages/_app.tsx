@@ -2,7 +2,9 @@ import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core'
 import '@mantine/core/styles.css'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
+import '@mantine/notifications/styles.css'
 import { NavigationProgress } from '@mantine/nprogress'
+import '@mantine/nprogress/styles.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { env } from '~/config/env'
@@ -10,7 +12,7 @@ import { theme } from '~/core/styles/theme'
 import getSiteLayout from '~/layouts/core'
 
 const colorSchemeManager = localStorageColorSchemeManager({
-  key: 'my-app-color-scheme',
+  key: `${env.PREFFIX}-color-scheme`,
 })
 
 export default function App(props: AppProps) {
@@ -23,7 +25,7 @@ export default function App(props: AppProps) {
   const webIconURL = '/favicon.svg'
 
   return (
-    <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
+    <>
       <Head>
         <title>{env.APP_NAME}</title>
         <meta name="title" content={title} />
@@ -45,17 +47,19 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      {/* router transition provider */}
-      <NavigationProgress />
+      <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
+        {/* router transition provider */}
+        <NavigationProgress />
 
-      {/* notification provider */}
-      <Notifications position="top-right" zIndex={2077} />
+        {/* notification provider */}
+        <Notifications position="top-right" zIndex={2077} />
 
-      {/* modal provider */}
-      <ModalsProvider>
-        {/* render site layout */}
-        {siteLayout}
-      </ModalsProvider>
-    </MantineProvider>
+        {/* modal provider */}
+        <ModalsProvider>
+          {/* render site layout */}
+          {siteLayout}
+        </ModalsProvider>
+      </MantineProvider>
+    </>
   )
 }
