@@ -16,9 +16,7 @@ export default function HomePage() {
         New Member
       </Title>
 
-      <Paper p={20} radius="md" className={classes.card}>
-        <TableScroll />
-      </Paper>
+      <TableScroll />
     </Stack>
   )
 }
