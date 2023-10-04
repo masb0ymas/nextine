@@ -1,5 +1,8 @@
 import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core'
 import '@mantine/core/styles.css'
+import { ModalsProvider } from '@mantine/modals'
+import { Notifications } from '@mantine/notifications'
+import { NavigationProgress } from '@mantine/nprogress'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { env } from '~/config/env'
@@ -42,8 +45,17 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      {/* render site layout */}
-      {siteLayout}
+      {/* router transition provider */}
+      <NavigationProgress />
+
+      {/* notification provider */}
+      <Notifications position="top-right" zIndex={2077} />
+
+      {/* modal provider */}
+      <ModalsProvider>
+        {/* render site layout */}
+        {siteLayout}
+      </ModalsProvider>
     </MantineProvider>
   )
 }
