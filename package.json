@@ -21,7 +21,6 @@
   "dependencies": {
     "@mantine/core": "^7.1.0",
     "@mantine/dates": "^7.1.0",
-    "@mantine/ds": "^7.1.0",
     "@mantine/form": "^7.1.0",
     "@mantine/hooks": "^7.1.0",
     "@mantine/modals": "^7.1.0",
