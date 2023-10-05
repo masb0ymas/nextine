@@ -15,8 +15,13 @@ import {
   IconUserCog,
 } from '@tabler/icons-react'
 import classes from './Header.module.css'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
+import { getInitialName } from '~/core/utils/formatter'
 
 export default function Header() {
+  const queryAuth = useAuthSession()
+  const { data } = queryAuth
+
   return (
     <header className={classes.header}>
       <Group justify="space-between">
@@ -41,8 +46,10 @@ export default function Header() {
           <Menu.Target>
             <UnstyledButton>
               <Group>
-                <Text>Halo, Admin</Text>
-                <Avatar color="teal">NF</Avatar>
+                <Text>{`Halo, ${data?.fullname}`}</Text>
+                <Avatar color="teal">
+                  {getInitialName(String(data?.fullname))}
+                </Avatar>
               </Group>
             </UnstyledButton>
           </Menu.Target>
