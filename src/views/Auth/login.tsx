@@ -102,6 +102,7 @@ export default function LoginPage() {
           <TextInput
             leftSectionPointerEvents="none"
             leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
+            radius="md"
             label="Email"
             placeholder="you@mantine.dev"
             required
@@ -112,6 +113,7 @@ export default function LoginPage() {
             leftSection={
               <IconLock style={{ width: rem(16), height: rem(16) }} />
             }
+            radius="md"
             label="Password"
             placeholder="Your password"
             required
