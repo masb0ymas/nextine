@@ -105,9 +105,10 @@ export default function LoginPage() {
             radius="md"
             label="Email"
             placeholder="you@mantine.dev"
-            required
+            withAsterisk
             {...form.getInputProps('email')}
           />
+
           <PasswordInput
             leftSectionPointerEvents="none"
             leftSection={
@@ -116,7 +117,7 @@ export default function LoginPage() {
             radius="md"
             label="Password"
             placeholder="Your password"
-            required
+            withAsterisk
             mt="md"
             {...form.getInputProps('password')}
           />
