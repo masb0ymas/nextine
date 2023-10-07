@@ -7,19 +7,26 @@ import {
   rem,
   useMantineColorScheme,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import {
+  IconCheck,
   IconColorSwatch,
   IconDeviceDesktopCog,
   IconHome2,
   IconLogout,
   IconMoon,
   IconSun,
+  IconX,
 } from '@tabler/icons-react'
+import { useMutation } from '@tanstack/react-query'
 import _ from 'lodash'
 import Router, { useRouter } from 'next/router'
-import { useState } from 'react'
+import { env } from '~/config/env'
 import MantineLogo from '~/core/components/BrandLogo/MantineLogo'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
 import useMenuSidebar from '~/data/query/useMenuSidebar'
+import useVerifySession from '~/data/query/useVerifySession'
+import AuthRepository from '~/data/repository/AuthRepository'
 import classes from './Sidebar.module.css'
 
 interface BaseNavbarLinkProps {
@@ -106,6 +113,9 @@ export default function Siderbar() {
   const router = useRouter()
   const { setColorScheme } = useMantineColorScheme()
 
+  const userAuth = useAuthSession()
+  const { remove } = useVerifySession()
+
   const queryMenu = useMenuSidebar()
   const { data } = queryMenu
 
@@ -122,6 +132,42 @@ export default function Siderbar() {
       />
     )
   })
+
+  const postLogout = useMutation(() =>
+    AuthRepository.logout({ user_id: String(userAuth?.data?.id) })
+  )
+
+  async function handleLogout() {
+    try {
+      const response = await postLogout.mutateAsync()
+      const message = _.get(response, 'data.message', '')
+
+      // remove session
+      localStorage.removeItem(env.LOCAL_STORAGE_SESSION)
+      remove() // remove cache react query
+
+      // show notif
+      showNotification({
+        title: `See you again!`,
+        message,
+        color: 'green',
+        withCloseButton: false,
+        icon: <IconCheck size={16} />,
+      })
+
+      // direct success login
+      Router.push('/')
+    } catch (error) {
+      const errMessage = _.get(error, 'response.data.message', '')
+
+      showNotification({
+        title: 'Error',
+        message: errMessage,
+        icon: <IconX size={16} />,
+        color: 'red',
+      })
+    }
+  }
 
   return (
     <nav className={classes.navbar}>
@@ -191,7 +237,11 @@ export default function Siderbar() {
           position="right"
           transitionProps={{ duration: 0 }}
         >
-          <UnstyledButton className={classes.link} color="red">
+          <UnstyledButton
+            className={classes.link}
+            color="red"
+            onClick={() => handleLogout()}
+          >
             <IconLogout
               color="red"
               style={{ width: rem(20), height: rem(20) }}
