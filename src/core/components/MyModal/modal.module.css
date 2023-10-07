@@ -1,0 +1,13 @@
+.modal_title {
+  color: var(--mantine-color-gray-6);
+  font-weight: 600;
+
+  @mixin dark {
+    color: var(--mantine-color-dark-2);
+  }
+}
+
+.modal_label {
+  width: 150;
+  font-weight: 600;
+}

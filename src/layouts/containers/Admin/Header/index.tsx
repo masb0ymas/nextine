@@ -8,15 +8,67 @@ import {
   UnstyledButton,
   rem,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import {
+  IconCheck,
   IconLockOpen,
   IconLogout,
   IconSearch,
   IconUserCog,
+  IconX,
 } from '@tabler/icons-react'
+import { useMutation } from '@tanstack/react-query'
+import _ from 'lodash'
+import Router from 'next/router'
+import { env } from '~/config/env'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
+import { getInitialName } from '~/core/utils/formatter'
+import useVerifySession from '~/data/query/useVerifySession'
+import AuthRepository from '~/data/repository/AuthRepository'
 import classes from './Header.module.css'
 
 export default function Header() {
+  const queryAuth = useAuthSession()
+  const { data } = queryAuth
+
+  const { remove } = useVerifySession()
+
+  const postLogout = useMutation(() =>
+    AuthRepository.logout({ user_id: String(queryAuth?.data?.id) })
+  )
+
+  async function handleLogout() {
+    try {
+      const response = await postLogout.mutateAsync()
+      const message = _.get(response, 'data.message', '')
+
+      // remove session
+      localStorage.removeItem(env.LOCAL_STORAGE_SESSION)
+      remove() // remove cache react query
+
+      // show notif
+      showNotification({
+        title: `See you again!`,
+        message,
+        color: 'green',
+        withCloseButton: false,
+        icon: <IconCheck size={16} />,
+      })
+
+      // direct success login
+      Router.push('/')
+    } catch (error) {
+      const errMessage = _.get(error, 'response.data.message', '')
+
+      showNotification({
+        title: 'Error',
+        message: errMessage,
+        icon: <IconX size={16} />,
+        color: 'red',
+      })
+    }
+  }
+
   return (
     <header className={classes.header}>
       <Group justify="space-between">
@@ -41,8 +93,10 @@ export default function Header() {
           <Menu.Target>
             <UnstyledButton>
               <Group>
-                <Text>Halo, Admin</Text>
-                <Avatar color="teal">NF</Avatar>
+                <Text>{`Halo, ${data?.fullname}`}</Text>
+                <Avatar color="teal">
+                  {getInitialName(String(data?.fullname))}
+                </Avatar>
               </Group>
             </UnstyledButton>
           </Menu.Target>
@@ -71,6 +125,7 @@ export default function Header() {
               leftSection={
                 <IconLogout style={{ width: rem(14), height: rem(14) }} />
               }
+              onClick={() => handleLogout()}
             >
               Logout
             </Menu.Item>

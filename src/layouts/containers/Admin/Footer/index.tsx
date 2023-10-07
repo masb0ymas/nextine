@@ -1,5 +1,6 @@
 import { Center, Text } from '@mantine/core'
 import classes from './Footer.module.css'
+import { env } from '~/config/env'
 
 export default function Footer() {
   const dateNow = new Date()
@@ -9,7 +10,7 @@ export default function Footer() {
     <footer className={classes.footer}>
       <Center>
         <Text fz="sm" fw={500} c="dimmed">
-          &copy; {`${yearNow} Mantine.dev`}
+          &copy; {`${yearNow} ${env.APP_NAME}`}
         </Text>
       </Center>
     </footer>

@@ -102,19 +102,22 @@ export default function LoginPage() {
           <TextInput
             leftSectionPointerEvents="none"
             leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
+            radius="md"
             label="Email"
             placeholder="you@mantine.dev"
-            required
+            withAsterisk
             {...form.getInputProps('email')}
           />
+
           <PasswordInput
             leftSectionPointerEvents="none"
             leftSection={
               <IconLock style={{ width: rem(16), height: rem(16) }} />
             }
+            radius="md"
             label="Password"
             placeholder="Your password"
-            required
+            withAsterisk
             mt="md"
             {...form.getInputProps('password')}
           />

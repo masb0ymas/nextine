@@ -1,6 +1,9 @@
 import { Loader } from '@mantine/core'
+import Router from 'next/router'
 import { ReactComponentLike } from 'prop-types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import VerifyPage from '~/core/components/VerifyPage'
+import useVerifySession from '~/data/query/useVerifySession'
 import Footer from './Footer'
 import Header from './Header'
 import classes from './Main.module.css'
@@ -23,6 +26,30 @@ export default function AdminContainer(props: IProps) {
 
   const stateLayoutLoading = useState(false)
   const [isLayoutLoading] = stateLayoutLoading
+
+  const verifyAuth = useVerifySession()
+
+  useEffect(() => {
+    if (verifyAuth.isLoading) {
+      return
+    }
+
+    if (verifyAuth.error?.response?.status !== 401) {
+      return
+    }
+
+    verifyAuth.remove()
+    Router.push('/')
+  }, [
+    verifyAuth.error?.response?.status,
+    verifyAuth.isLoading,
+    verifyAuth.dataUpdatedAt,
+  ])
+
+  // authorize user
+  if (verifyAuth.isLoading) {
+    return <VerifyPage loading={verifyAuth.isLoading} />
+  }
 
   return (
     <AdminContext.Provider value={{ stateLayoutLoading }}>

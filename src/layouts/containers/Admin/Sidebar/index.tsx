@@ -7,30 +7,33 @@ import {
   rem,
   useMantineColorScheme,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 import {
-  IconAnalyze,
+  IconCheck,
   IconColorSwatch,
-  IconDeviceDesktopAnalytics,
   IconDeviceDesktopCog,
-  IconHistory,
   IconHome2,
   IconLogout,
   IconMoon,
-  IconSettings,
   IconSun,
-  IconUser,
-  IconUsers,
+  IconX,
 } from '@tabler/icons-react'
+import { useMutation } from '@tanstack/react-query'
 import _ from 'lodash'
-import { useState } from 'react'
+import Router, { useRouter } from 'next/router'
+import { env } from '~/config/env'
 import MantineLogo from '~/core/components/BrandLogo/MantineLogo'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
+import useMenuSidebar from '~/data/query/useMenuSidebar'
+import useVerifySession from '~/data/query/useVerifySession'
+import AuthRepository from '~/data/repository/AuthRepository'
 import classes from './Sidebar.module.css'
 
 interface BaseNavbarLinkProps {
   icon: typeof IconHome2
   label: string
+  link?: string
   active?: boolean
-  onClick?(): void
 }
 
 interface NavbarLinkProps extends BaseNavbarLinkProps {
@@ -40,17 +43,19 @@ interface NavbarLinkProps extends BaseNavbarLinkProps {
 function NavbarLink({
   icon: Icon,
   label,
+  link,
   links,
   active,
-  onClick,
 }: NavbarLinkProps) {
+  const router = useRouter()
+
   return (
     <>
       {!_.isEmpty(links) ? (
         <Menu
           withArrow
           shadow="md"
-          position="right"
+          position="right-start"
           radius="md"
           trigger="hover"
           openDelay={200}
@@ -58,7 +63,6 @@ function NavbarLink({
         >
           <Menu.Target>
             <UnstyledButton
-              onClick={onClick}
               className={classes.link}
               data-active={active || undefined}
             >
@@ -67,16 +71,24 @@ function NavbarLink({
           </Menu.Target>
 
           <Menu.Dropdown>
-            {links?.map((item) => (
-              <Menu.Item
-                leftSection={
-                  <item.icon style={{ width: rem(14), height: rem(14) }} />
-                }
-                key={item.label}
-              >
-                {item.label}
-              </Menu.Item>
-            ))}
+            {links?.map((item) => {
+              const matchPath = router.pathname.match(String(item.link))
+              const is_active = !_.isEmpty(matchPath)
+
+              return (
+                <Menu.Item
+                  leftSection={
+                    <item.icon style={{ width: rem(16), height: rem(16) }} />
+                  }
+                  onClick={() => Router.push(String(item.link))}
+                  data-active={is_active}
+                  color={is_active ? 'blue' : undefined}
+                  key={item.label}
+                >
+                  {item.label}
+                </Menu.Item>
+              )
+            })}
           </Menu.Dropdown>
         </Menu>
       ) : (
@@ -86,7 +98,7 @@ function NavbarLink({
           transitionProps={{ duration: 0 }}
         >
           <UnstyledButton
-            onClick={onClick}
+            onClick={() => Router.push(String(link))}
             className={classes.link}
             data-active={active || undefined}
           >
@@ -98,42 +110,67 @@ function NavbarLink({
   )
 }
 
-const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  {
-    icon: IconUsers,
-    label: 'Account',
-    links: [
-      {
-        icon: IconUser,
-        label: 'User',
-      },
-      {
-        icon: IconAnalyze,
-        label: 'Role',
-      },
-      {
-        icon: IconHistory,
-        label: 'Session',
-      },
-    ],
-  },
-  { icon: IconSettings, label: 'Settings' },
-]
-
 export default function Siderbar() {
-  const [active, setActive] = useState(0)
+  const router = useRouter()
   const { setColorScheme } = useMantineColorScheme()
 
-  const links = mockdata.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
-    />
-  ))
+  const userAuth = useAuthSession()
+  const { remove } = useVerifySession()
+
+  const queryMenu = useMenuSidebar()
+  const { data } = queryMenu
+
+  const links = data.map((item) => {
+    const links_active = item.links?.find((x) => x.link === router.pathname)
+    const matchPath = router.pathname.match(String(item.link))
+
+    const is_active = !_.isEmpty(matchPath) || !_.isEmpty(links_active)
+
+    return (
+      <NavbarLink
+        {...item}
+        key={item.label}
+        active={is_active}
+        link={item.link}
+      />
+    )
+  })
+
+  const postLogout = useMutation(() =>
+    AuthRepository.logout({ user_id: String(userAuth?.data?.id) })
+  )
+
+  async function handleLogout() {
+    try {
+      const response = await postLogout.mutateAsync()
+      const message = _.get(response, 'data.message', '')
+
+      // remove session
+      localStorage.removeItem(env.LOCAL_STORAGE_SESSION)
+      remove() // remove cache react query
+
+      // show notif
+      showNotification({
+        title: `See you again!`,
+        message,
+        color: 'green',
+        withCloseButton: false,
+        icon: <IconCheck size={16} />,
+      })
+
+      // direct success login
+      Router.push('/')
+    } catch (error) {
+      const errMessage = _.get(error, 'response.data.message', '')
+
+      showNotification({
+        title: 'Error',
+        message: errMessage,
+        icon: <IconX size={16} />,
+        color: 'red',
+      })
+    }
+  }
 
   return (
     <nav className={classes.navbar}>
@@ -203,7 +240,11 @@ export default function Siderbar() {
           position="right"
           transitionProps={{ duration: 0 }}
         >
-          <UnstyledButton className={classes.link} color="red">
+          <UnstyledButton
+            className={classes.link}
+            color="red"
+            onClick={() => handleLogout()}
+          >
             <IconLogout
               color="red"
               style={{ width: rem(20), height: rem(20) }}
