@@ -22,7 +22,7 @@ export default function MyTitlePage(props: MyTitlePageProps) {
       )}
 
       <MyTitle>{title}</MyTitle>
-      <Badge variant="outline" color="blue" size="lg" radius="md" lts={1.5}>
+      <Badge variant="light" color="blue" size="lg" radius="md" lts={1}>
         {subtitle}
       </Badge>
     </Group>
