@@ -11,6 +11,7 @@ import {
   Select,
   Text,
   Tooltip,
+  TransitionProps,
 } from '@mantine/core'
 import { IconEdit, IconEye, IconTrashX } from '@tabler/icons-react'
 import {
@@ -59,6 +60,11 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
 
   const { data, total, isFetching } = query
 
+  const transition: Partial<TransitionProps> = {
+    transition: 'slide-up',
+    duration: 500,
+  }
+
   const defaultColumns: ColumnDef<T>[] = [
     ...columns,
     {
@@ -82,10 +88,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
           ) : (
             <>
               {isShowDetail && (
-                <Tooltip
-                  transitionProps={{ transition: 'pop', duration: 300 }}
-                  label="Detail"
-                >
+                <Tooltip label="Detail" transitionProps={transition}>
                   <ActionIcon
                     size="md"
                     variant="subtle"
@@ -98,10 +101,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
               )}
 
               {isEdit && (
-                <Tooltip
-                  transitionProps={{ transition: 'pop', duration: 300 }}
-                  label="Edit"
-                >
+                <Tooltip label="Edit" transitionProps={transition}>
                   <ActionIcon
                     size="md"
                     variant="subtle"
@@ -116,10 +116,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
               )}
 
               {isDeleted && (
-                <Tooltip
-                  transitionProps={{ transition: 'pop', duration: 300 }}
-                  label="Edit"
-                >
+                <Tooltip label="Delete" transitionProps={transition}>
                   <ActionIcon
                     size="md"
                     variant="subtle"
@@ -203,7 +200,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
                 let widthStyle: any = 'fit-content'
 
                 if (header.id.match(/actions/i)) {
-                  widthStyle = 140
+                  widthStyle = 90
                 } else if (['index', 'select'].includes(header.id)) {
                   widthStyle = 100
                 }
