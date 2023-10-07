@@ -10,6 +10,7 @@ import {
 import { modals } from '@mantine/modals'
 import { IconPlus, IconSearch } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
 import MyPaper from '~/core/components/MyPaper/MyPaper'
 import MyReactTable from '~/core/components/MyTable/ReactTable'
 import { RoleEntity } from '~/data/entities/Role'
@@ -80,6 +81,8 @@ export default function RolePage() {
                   stroke={3}
                 />
               }
+              component={Link}
+              href={`${baseURL}/add`}
             >
               Add
             </Button>
