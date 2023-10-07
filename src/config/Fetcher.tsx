@@ -56,9 +56,11 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
           icon: <IconX size={16} />,
         })
 
-        if (statusCode === 401) {
+        const getSession =localStorage.getItem(String(keyLocalStorage))
+
+        if (!_.isEmpty(getSession) && statusCode === 401) {
           // login page
-          Router.push('/')
+          Router.reload()
         }
       }
 
