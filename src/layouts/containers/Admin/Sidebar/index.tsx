@@ -72,7 +72,8 @@ function NavbarLink({
 
           <Menu.Dropdown>
             {links?.map((item) => {
-              const is_active = item.link === router.pathname
+              const matchPath = router.pathname.match(String(item.link))
+              const is_active = !_.isEmpty(matchPath)
 
               return (
                 <Menu.Item
@@ -121,7 +122,9 @@ export default function Siderbar() {
 
   const links = data.map((item) => {
     const links_active = item.links?.find((x) => x.link === router.pathname)
-    const is_active = item.link === router.pathname || !_.isEmpty(links_active)
+    const matchPath = router.pathname.match(String(item.link))
+
+    const is_active = !_.isEmpty(matchPath) || !_.isEmpty(links_active)
 
     return (
       <NavbarLink
