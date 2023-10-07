@@ -1,12 +1,9 @@
 import {
-  IconAnalyze,
   IconApps,
   IconDeviceDesktopAnalytics,
-  IconHistory,
   IconHome2,
   IconServerCog,
   IconSettings,
-  IconUser,
   IconUsers,
 } from '@tabler/icons-react'
 import React from 'react'
@@ -24,28 +21,20 @@ export interface MainLinkProps extends LinkProps {
 
 function useMenuSidebar() {
   const data = [
-    { icon: IconHome2, label: 'Home', link: '/dashboard' },
-    { icon: IconDeviceDesktopAnalytics, label: 'Analytics', link: '/analytic' },
+    {
+      icon: IconHome2,
+      label: 'Home',
+      link: '/dashboard',
+    },
+    {
+      icon: IconDeviceDesktopAnalytics,
+      label: 'Analytics',
+      link: '/analytic',
+    },
     {
       icon: IconUsers,
       label: 'Account',
-      links: [
-        {
-          icon: IconUser,
-          label: 'User',
-          link: '/account/user',
-        },
-        {
-          icon: IconAnalyze,
-          label: 'Role',
-          link: '/account/role',
-        },
-        {
-          icon: IconHistory,
-          label: 'Session',
-          link: '/account/session',
-        },
-      ],
+      link: '/account',
     },
     {
       icon: IconSettings,
