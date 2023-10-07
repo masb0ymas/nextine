@@ -2,7 +2,6 @@ import { notifications } from '@mantine/notifications'
 import { IconX } from '@tabler/icons-react'
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import _ from 'lodash'
-import Router from 'next/router'
 import { ms } from '~/core/utils/formatter'
 import { env } from './env'
 
@@ -47,6 +46,7 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
         500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511,
       ]
 
+      // Client Error
       if (errorClientCode.includes(Number(statusCode))) {
         notifications.show({
           title: `Client Error : ${statusCode}`,
@@ -55,15 +55,9 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
           withCloseButton: false,
           icon: <IconX size={16} />,
         })
-
-        const getSession =localStorage.getItem(String(keyLocalStorage))
-
-        if (!_.isEmpty(getSession) && statusCode === 401) {
-          // login page
-          Router.reload()
-        }
       }
 
+      // Server Error
       if (errorServerCode.includes(Number(statusCode))) {
         const errMessage: any = error.response?.data ?? error.message
 
