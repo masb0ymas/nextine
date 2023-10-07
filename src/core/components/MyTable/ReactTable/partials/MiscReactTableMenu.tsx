@@ -33,7 +33,7 @@ export default function MiscReactTableMenu<T>(props: IMiscReactTableMenu<T>) {
         </ActionIcon>
       </Menu.Target>
 
-      <Menu.Dropdown p={10}>
+      <Menu.Dropdown>
         <Menu.Label>Actions</Menu.Label>
         {isShowDetail && (
           <Menu.Item

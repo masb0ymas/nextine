@@ -8,8 +8,9 @@ type Query = QueryObserverBaseResult & {
   total: number
 }
 
-export interface IReactTable<T>
-  extends ReturnType<typeof useReactTable<T>> {
+type ReactTableProps<T> = ReturnType<typeof useReactTable<T>>
+
+export interface IReactTable<T> extends Partial<ReactTableProps<T>> {
   query: Query
   columns: ColumnDef<T>[]
   baseURL: string

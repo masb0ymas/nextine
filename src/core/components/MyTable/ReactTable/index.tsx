@@ -26,7 +26,6 @@ import EmptyRecord from '../../Empty/EmptyRecord'
 import { openSelectModal } from '../../MyModal'
 import { IReactTable } from './IReactTable'
 import MiscReactTableMenu from './partials/MiscReactTableMenu'
-import _ from 'lodash'
 
 export const optPageSize = [
   { label: '5', value: '5' },
@@ -88,23 +87,24 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
                   label="Detail"
                 >
                   <ActionIcon
-                    size={'xs'}
-                    variant="transparent"
-                    color="green"
+                    size="md"
+                    variant="subtle"
+                    color="teal"
                     onClick={() => showModalDetail(row.original)}
                   >
                     <IconEye />
                   </ActionIcon>
                 </Tooltip>
               )}
+
               {isEdit && (
                 <Tooltip
                   transitionProps={{ transition: 'pop', duration: 300 }}
                   label="Edit"
                 >
                   <ActionIcon
-                    size={'xs'}
-                    variant="transparent"
+                    size="md"
+                    variant="subtle"
                     color="blue"
                     component={Link}
                     // @ts-ignore
@@ -121,8 +121,8 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
                   label="Edit"
                 >
                   <ActionIcon
-                    size={'xs'}
-                    variant="transparent"
+                    size="md"
+                    variant="subtle"
                     color="red"
                     onClick={() =>
                       openSelectModal({
@@ -145,11 +145,12 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
   ]
 
   const newColumns = useMemo(() => {
-    if (!isEdit && !isDeleted) {
+    if (!isEdit && !isDeleted && !isShowDetail) {
       return [...columns]
     }
+
     return defaultColumns
-  }, [isEdit, isDeleted])
+  }, [isEdit, isDeleted, isShowDetail])
 
   const columnOrder = useMemo<ColumnOrderState>(
     () => newColumns.map((column) => column.id as string),
@@ -192,7 +193,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
         mx={'auto'}
         mih={200}
         horizontalSpacing={'sm'}
-        verticalSpacing={8}
+        verticalSpacing={'sm'}
       >
         {/* Header */}
         <MantineTable.Thead>
@@ -251,7 +252,7 @@ export default function MyReactTable<T>(props: IReactTable<T>) {
         </MantineTable.Tbody>
       </MantineTable>
 
-      <Divider variant='dashed' my="xs" />
+      <Divider variant="dashed" my="xs" />
 
       <Container fluid>
         <Group justify="space-between" mt={20}>
