@@ -1,10 +1,17 @@
-import { Button, Grid, Stack, TextInput, Tooltip, rem } from '@mantine/core'
+import {
+  Button,
+  Grid,
+  Stack,
+  TextInput,
+  Tooltip,
+  TransitionProps,
+  rem,
+} from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { IconPlus, IconSearch } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
 import MyPaper from '~/core/components/MyPaper/MyPaper'
 import MyReactTable from '~/core/components/MyTable/ReactTable'
-import MyTitle from '~/core/components/MyTitle/MyTitle'
 import { RoleEntity } from '~/data/entities/Role'
 import useRole from '~/data/query/Role/useRole'
 import RoleRepository from '~/data/repository/RoleRepository'
@@ -44,6 +51,11 @@ export default function RolePage() {
     }
   )
 
+  const transition: Partial<TransitionProps> = {
+    transition: 'slide-up',
+    duration: 500,
+  }
+
   return (
     <Stack gap={15}>
       <Grid justify="space-between" align="stretch">
@@ -59,10 +71,7 @@ export default function RolePage() {
         </Grid.Col>
 
         <Grid.Col span={{ base: 12, md: 6, lg: 3 }} ta="right">
-          <Tooltip
-            label="Add Role"
-            transitionProps={{ transition: 'slide-up', duration: 300 }}
-          >
+          <Tooltip label="Add Role" transitionProps={transition}>
             <Button
               radius="md"
               leftSection={

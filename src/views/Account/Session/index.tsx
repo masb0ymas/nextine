@@ -50,7 +50,6 @@ export default function SessionPage() {
           }}
           isEdit={false}
           isDeleted={false}
-          isMiscAction={false}
         />
       </MyPaper>
     </Stack>
