@@ -45,62 +45,58 @@ export default function RolePage() {
   )
 
   return (
-    <Stack gap="xl">
-      <MyTitle>Role</MyTitle>
-
-      <Stack gap={15}>
-        <Grid justify="space-between" align="stretch">
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <TextInput
-              radius="md"
-              leftSectionPointerEvents="none"
-              leftSection={
-                <IconSearch style={{ width: rem(16), height: rem(16) }} />
-              }
-              placeholder="Search..."
-            />
-          </Grid.Col>
-
-          <Grid.Col span={{ base: 12, md: 6, lg: 3 }} ta="right">
-            <Tooltip
-              label="Add Role"
-              transitionProps={{ transition: 'slide-up', duration: 300 }}
-            >
-              <Button
-                radius="md"
-                leftSection={
-                  <IconPlus
-                    style={{ width: rem(16), height: rem(16) }}
-                    stroke={3}
-                  />
-                }
-              >
-                Add
-              </Button>
-            </Tooltip>
-          </Grid.Col>
-        </Grid>
-
-        <MyPaper withBorder pt={25} pb={15} px={30} radius="md">
-          <MyReactTable<RoleEntity>
-            baseURL={baseURL}
-            columns={columnRole}
-            query={queryData}
-            showModalDetail={(info: RoleEntity) => {
-              modals.open({
-                centered: true,
-                size: 'lg',
-                title: 'Role Detail',
-                children: <DetailRoleModal data={info} />,
-              })
-            }}
-            // @ts-ignore
-            selectedMutation={softDelete}
-            // @ts-ignore
-            multiSelectedMutation={multipleDelete}
+    <Stack gap={15}>
+      <Grid justify="space-between" align="stretch">
+        <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+          <TextInput
+            radius="md"
+            leftSectionPointerEvents="none"
+            leftSection={
+              <IconSearch style={{ width: rem(16), height: rem(16) }} />
+            }
+            placeholder="Search..."
           />
-        </MyPaper>
-      </Stack>
+        </Grid.Col>
+
+        <Grid.Col span={{ base: 12, md: 6, lg: 3 }} ta="right">
+          <Tooltip
+            label="Add Role"
+            transitionProps={{ transition: 'slide-up', duration: 300 }}
+          >
+            <Button
+              radius="md"
+              leftSection={
+                <IconPlus
+                  style={{ width: rem(16), height: rem(16) }}
+                  stroke={3}
+                />
+              }
+            >
+              Add
+            </Button>
+          </Tooltip>
+        </Grid.Col>
+      </Grid>
+
+      <MyPaper withBorder pt={25} pb={15} px={30} radius="md">
+        <MyReactTable<RoleEntity>
+          baseURL={baseURL}
+          columns={columnRole}
+          query={queryData}
+          showModalDetail={(info: RoleEntity) => {
+            modals.open({
+              centered: true,
+              size: 'lg',
+              title: 'Role Detail',
+              children: <DetailRoleModal data={info} />,
+            })
+          }}
+          // @ts-ignore
+          selectedMutation={softDelete}
+          // @ts-ignore
+          multiSelectedMutation={multipleDelete}
+        />
+      </MyPaper>
     </Stack>
   )
 }
