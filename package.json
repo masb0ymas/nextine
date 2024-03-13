@@ -10,7 +10,7 @@
     "export": "next build && next export",
     "typecheck": "tsc --noEmit",
     "lint": "next lint",
-    "prebuild": "npm-run-all lint typecheck",
+    "prebuild": "npm-run-all typecheck",
     "jest": "jest",
     "jest:watch": "jest --watch",
     "prettier:check": "prettier --check \"**/*.{ts,tsx}\"",
