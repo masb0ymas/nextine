@@ -1,7 +1,8 @@
 {
   "name": "nextine",
+  "description": "Admin Template with NextJS & Mantine UI v7",
   "version": "0.0.1",
-  "private": true,
+  "keywords": ["reactjs", "nextjs", "react-query", "mantine-ui"],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -19,12 +20,22 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "prerelease": "npm run prebuild",
-    "postrelease": "git push --follow-tags origin main && npm run publish",
+    "postrelease": "git push --follow-tags origin main && npm publish",
     "release": "standard-version",
     "release:pre": "npm run release -- --prerelease",
     "release:patch": "npm run release -- --release-as patch",
     "release:minor": "npm run release -- --release-as minor",
     "release:major": "npm run release -- --release-as major"
+  },
+  "author": "masb0ymas <n.fajri@mail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/masb0ymas/create-expresso-app#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masb0ymas/create-expresso-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/masb0ymas/create-expresso-app/issues"
   },
   "dependencies": {
     "@mantine/core": "^7.1.2",
