@@ -34,13 +34,13 @@
   },
   "author": "masb0ymas <n.fajri@mail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/masb0ymas/create-expresso-app#readme",
+  "homepage": "https://github.com/masb0ymas/nextine#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/masb0ymas/create-expresso-app.git"
+    "url": "git+https://github.com/masb0ymas/nextine.git"
   },
   "bugs": {
-    "url": "https://github.com/masb0ymas/create-expresso-app/issues"
+    "url": "https://github.com/masb0ymas/nextine/issues"
   },
   "dependencies": {
     "@mantine/core": "^7.1.2",
