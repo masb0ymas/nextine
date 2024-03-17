@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/masb0ymas/nextine/compare/v0.0.2...v0.0.3) (2024-03-17)
+
+
+### Features
+
+* add tea contributor ([de265c7](https://github.com/masb0ymas/nextine/commit/de265c781a1bcb0f5769c77968cad44204e97882))
+
+
+### Bug Fixes
+
+* update deps ([1f84171](https://github.com/masb0ymas/nextine/commit/1f841711f8b4decf926c0bb1e54b2d17cdf50a05))
+
 ### [0.0.2](https://github.com/masb0ymas/create-expresso-app/compare/v0.0.1...v0.0.2) (2024-03-14)
 
 
