@@ -1,15 +1,20 @@
-import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core'
 import '@mantine/core/styles.css'
+import '@mantine/core/styles.layer.css'
+import '@mantine/notifications/styles.css'
+import '@mantine/nprogress/styles.css'
+import 'mantine-datatable/styles.layer.css'
+import 'mantine-contextmenu/styles.layer.css'
+
+import { MantineProvider, localStorageColorSchemeManager } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
-import '@mantine/notifications/styles.css'
 import { NavigationProgress } from '@mantine/nprogress'
-import '@mantine/nprogress/styles.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { env } from '~/config/env'
 import { theme } from '~/core/styles/theme'
 import getSiteLayout from '~/layouts/core'
+import { ContextMenuProvider } from 'mantine-contextmenu'
 
 const colorSchemeManager = localStorageColorSchemeManager({
   key: `${env.PREFFIX}-color-scheme`,
@@ -57,7 +62,7 @@ export default function App(props: AppProps) {
         {/* modal provider */}
         <ModalsProvider>
           {/* render site layout */}
-          {siteLayout}
+          <ContextMenuProvider>{siteLayout}</ContextMenuProvider>
         </ModalsProvider>
       </MantineProvider>
     </>

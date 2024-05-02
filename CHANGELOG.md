@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/masb0ymas/nextine/compare/v0.0.4...v0.0.5) (2024-04-01)
+
+
+### Features
+
+* add mantine datatable ([51e18c7](https://github.com/masb0ymas/nextine/commit/51e18c7a13fee27d69c47f73ccff037fee352ef4))
+
+
+### Bug Fixes
+
+* update package ([a8d9dab](https://github.com/masb0ymas/nextine/commit/a8d9daba59011f571232138a75708688d0f27580))
+
 ### [0.0.4](https://github.com/masb0ymas/nextine/compare/v0.0.3...v0.0.4) (2024-03-17)
 
 
