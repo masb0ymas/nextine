@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/masb0ymas/nextine/compare/v0.0.5...v0.0.6) (2024-05-02)
+
+
+### Bug Fixes
+
+* update deps ([2b687d0](https://github.com/masb0ymas/nextine/commit/2b687d0d8161b523e83222083aec5bebe907f438))
+
 ### [0.0.5](https://github.com/masb0ymas/nextine/compare/v0.0.4...v0.0.5) (2024-04-01)
 
 
